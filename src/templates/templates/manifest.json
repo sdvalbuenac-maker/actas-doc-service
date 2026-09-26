@@ -1,0 +1,24 @@
+{
+  "documentos": {
+    "Acta_Policial_Patrullaje": { "archivo": "acta-policial-patrullaje.docx" },
+    "Acta_No_Vejamen": { "archivo": "acta-no-vejamen.docx" },
+    "Acta_Consentimiento_Voluntad": { "archivo": "acta-consentimiento-voluntad.docx" },
+    "Derechos_Del_Imputado": { "archivo": "derechos-del-imputado.docx" },
+    "Acta_Identificacion_Provisional": { "archivo": "acta-identificacion-provisional.docx" },
+    "Oficio_Examen_Toxicologico": { "archivo": "oficio-examen-toxicologico.docx" },
+    "Acta_Inspeccion_Tecnica": { "archivo": "acta-inspeccion-tecnica.docx" },
+    "Fijacion_Fotografica": { "archivo": "fijacion-fotografica.docx" },
+    "Oficio_Remision_Evidencia": { "archivo": "oficio-remision-evidencia.docx" },
+    "Minuta_Informativa_CICPC": { "archivo": "minuta-informativa-cicpc.docx" },
+    "Oficio_Reseña_CICPC": { "archivo": "oficio-resena-cicpc.docx" },
+    "Oficio_SAIME": { "archivo": "oficio-saime.docx" },
+    "Oficio_SENAMECF": { "archivo": "oficio-senamecf.docx" },
+    "Oficio_Notificacion_Fiscal": { "archivo": "oficio-notificacion-fiscal.docx" },
+    "Portada_Expediente": { "archivo": "portada-expediente.docx" },
+    "Ficha_Caso_Denuncia": { "archivo": "ficha-caso-denuncia.docx" },
+    "Acta_Denuncia_Comun": { "archivo": "acta-denuncia-comun.docx" },
+    "Planilla_Confidencial_Victima_Testigo": { "archivo": "planilla-confidencial-victima-testigo.docx" },
+    "Datos_Filiatorios": { "archivo": "datos-filiatorios.docx" },
+    "Acta_Policial_Por_Denuncia": { "archivo": "acta-policial-por-denuncia.docx" }
+  }
+  }
