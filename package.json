@@ -1,0 +1,15 @@
+{
+  "name": "actas-doc-service",
+  "version": "1.0.0",
+  "description": "Microservicio de generación de actas/oficios policiales (.docx)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "docxtemplater": "^3.50.0",
+    "express": "^4.21.1",
+    "pizzip": "^3.1.7"
+  }
+}
