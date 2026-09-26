@@ -1,0 +1,28 @@
+{
+  "_comentario": "Mapea el nombre EXACTO de documento que aparece en la columna 'documentos_a_generar' de tu hoja 'Catalogo - Agente Actas Policiales' (separados por ; en la hoja) al archivo .docx de plantilla que debe rellenarse. Sube tus .docx reales a esta carpeta 'templates/' con esos nombres de archivo, o ajusta 'archivo' para que apunte al nombre real que subiste. Estos son los 19 documentos reales del caso Cota-905 (droga) + los de hurto/extorsión/violencia contra la mujer, tal como están escritos hoy en tu catálogo.",
+  "_aviso_importante": "Tu catálogo NO tiene todavía una fila para 'explosivos' / Ley sobre Armas y Explosivos (el caso de Kamilo Antonio Duerto Placencia). Por eso el agente inventó nombres de documento libres ('Acta Policial de Aprehensión', etc.) en vez de usar los nombres reales del catálogo — y esos nombres inventados no calzan con ESTE manifiesto, así que ese caso seguiría fallando con 'no está registrado en manifest.json' hasta que agregues una fila 'Arma de fuego / explosivos' al catálogo (como ya hiciste para 'Robo de vehiculo' y 'Arma de fuego', ahora en PENDIENTE) con su lista real de documentos_a_generar.",
+  "_ejemplo_de_placeholder_en_word": "Dentro del .docx, donde antes tenías el dato escrito a mano, pon {nombre_del_campo} (con llaves simples) usando exactamente los mismos nombres de campo que ya usa el agente: fecha, hora, funcionario_aprehensor_rango_nombre, ubicacion_aprehension, aprehendido_nombre, aprehendido_cedula, aprehendido_edad, evidencia_incautada, lectura_derechos, etc.",
+  "_listas_en_word": "Para una lista (ej. funcionarios_auxiliares, vehiculos_utilizados) usa la sintaxis de bucle de docxtemplater: {#funcionarios_auxiliares}{.}\n{/funcionarios_auxiliares} para una lista simple de strings, o {#vehiculos_utilizados}{marca} {modelo} {color} placa {placa}\n{/vehiculos_utilizados} para una lista de objetos.",
+  "documentos": {
+    "Acta_Policial_Patrullaje": { "archivo": "acta-policial-patrullaje.docx" },
+    "Acta_No_Vejamen": { "archivo": "acta-no-vejamen.docx" },
+    "Acta_Consentimiento_Voluntad": { "archivo": "acta-consentimiento-voluntad.docx" },
+    "Derechos_Del_Imputado": { "archivo": "derechos-del-imputado.docx" },
+    "Acta_Identificacion_Provisional": { "archivo": "acta-identificacion-provisional.docx" },
+    "Oficio_Examen_Toxicologico": { "archivo": "oficio-examen-toxicologico.docx" },
+    "Acta_Inspeccion_Tecnica": { "archivo": "acta-inspeccion-tecnica.docx" },
+    "Fijacion_Fotografica": { "archivo": "fijacion-fotografica.docx" },
+    "Oficio_Remision_Evidencia": { "archivo": "oficio-remision-evidencia.docx" },
+    "Minuta_Informativa_CICPC": { "archivo": "minuta-informativa-cicpc.docx" },
+    "Oficio_Reseña_CICPC": { "archivo": "oficio-resena-cicpc.docx" },
+    "Oficio_SAIME": { "archivo": "oficio-saime.docx" },
+    "Oficio_SENAMECF": { "archivo": "oficio-senamecf.docx" },
+    "Oficio_Notificacion_Fiscal": { "archivo": "oficio-notificacion-fiscal.docx" },
+    "Portada_Expediente": { "archivo": "portada-expediente.docx" },
+    "Ficha_Caso_Denuncia": { "archivo": "ficha-caso-denuncia.docx" },
+    "Acta_Denuncia_Comun": { "archivo": "acta-denuncia-comun.docx" },
+    "Planilla_Confidencial_Victima_Testigo": { "archivo": "planilla-confidencial-victima-testigo.docx" },
+    "Datos_Filiatorios": { "archivo": "datos-filiatorios.docx" },
+    "Acta_Policial_Por_Denuncia": { "archivo": "acta-policial-por-denuncia.docx" }
+  }
+}
