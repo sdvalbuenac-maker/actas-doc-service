@@ -46,7 +46,16 @@ function renderDocx(templateFilePath, campos) {
   }
   const content = fs.readFileSync(templateFilePath, "binary");
   const zip = new PizZip(content);
-  const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+  // Las plantillas .docx reales usan llaves dobles {{campo}} (no {campo} como
+  // dice el comentario original del manifest). Sin este delimiter explícito,
+  // docxtemplater interpreta cada {{ como una apertura duplicada y falla el
+  // render de las 19 plantillas con "Multi error" / "Duplicate open tag".
+  const doc = new Docxtemplater(zip, {
+    paragraphLoop: true,
+    linebreaks: true,
+    delimiters: { start: "{{", end: "}}" },
+    nullGetter: () => "",
+  });
 
   try {
     doc.render(sanitizeCampos(campos));
@@ -126,7 +135,9 @@ app.post("/generar", checkApiKey, async (req, res) => {
     return res.status(422).json({ error: "No se pudo generar ningún documento.", detalles: errores });
   }
 
-  const nombreCaso = slugify(campos.aprehendido_nombre || campos.caso || "caso");
+  const nombreCaso = slugify(
+    campos.EXPEDIENTE || campos.DATOS_APREHENDIDO || campos.aprehendido_nombre || campos.caso || "caso"
+  );
 
   if (generados.length === 1 && errores.length === 0) {
     const filename = `${slugify(generados[0].nombre)}-${nombreCaso}.docx`;
@@ -152,3 +163,4 @@ app.post("/generar", checkApiKey, async (req, res) => {
 app.listen(PORT, () => {
   console.log(`actas-doc-service escuchando en el puerto ${PORT}`);
 });
+    
