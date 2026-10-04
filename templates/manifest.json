@@ -4,25 +4,75 @@
   "_ejemplo_de_placeholder_en_word": "Dentro del .docx, donde antes tenías el dato escrito a mano, pon {nombre_del_campo} (con llaves simples) usando exactamente los mismos nombres de campo que ya usa el agente: fecha, hora, funcionario_aprehensor_rango_nombre, ubicacion_aprehension, aprehendido_nombre, aprehendido_cedula, aprehendido_edad, evidencia_incautada, lectura_derechos, etc.",
   "_listas_en_word": "Para una lista (ej. funcionarios_auxiliares, vehiculos_utilizados) usa la sintaxis de bucle de docxtemplater: {#funcionarios_auxiliares}{.}\n{/funcionarios_auxiliares} para una lista simple de strings, o {#vehiculos_utilizados}{marca} {modelo} {color} placa {placa}\n{/vehiculos_utilizados} para una lista de objetos.",
   "documentos": {
-    "Acta_Policial_Patrullaje": { "archivo": "acta-policial-patrullaje.docx" },
-    "Acta_No_Vejamen": { "archivo": "acta-no-vejamen.docx" },
-    "Acta_Consentimiento_Voluntad": { "archivo": "acta-consentimiento-voluntad.docx" },
-    "Derechos_Del_Imputado": { "archivo": "derechos-del-imputado.docx" },
-    "Acta_Identificacion_Provisional": { "archivo": "acta-identificacion-provisional.docx" },
-    "Oficio_Examen_Toxicologico": { "archivo": "oficio-examen-toxicologico.docx" },
-    "Acta_Inspeccion_Tecnica": { "archivo": "acta-inspeccion-tecnica.docx" },
-    "Fijacion_Fotografica": { "archivo": "fijacion-fotografica.docx" },
-    "Oficio_Remision_Evidencia": { "archivo": "oficio-remision-evidencia.docx" },
-    "Minuta_Informativa_CICPC": { "archivo": "minuta-informativa-cicpc.docx" },
-    "Oficio_Reseña_CICPC": { "archivo": "oficio-resena-cicpc.docx" },
-    "Oficio_SAIME": { "archivo": "oficio-saime.docx" },
-    "Oficio_SENAMECF": { "archivo": "oficio-senamecf.docx" },
-    "Oficio_Notificacion_Fiscal": { "archivo": "oficio-notificacion-fiscal.docx" },
-    "Portada_Expediente": { "archivo": "portada-expediente.docx" },
-    "Ficha_Caso_Denuncia": { "archivo": "ficha-caso-denuncia.docx" },
-    "Acta_Denuncia_Comun": { "archivo": "acta-denuncia-comun.docx" },
-    "Planilla_Confidencial_Victima_Testigo": { "archivo": "planilla-confidencial-victima-testigo.docx" },
-    "Datos_Filiatorios": { "archivo": "datos-filiatorios.docx" },
-    "Acta_Policial_Por_Denuncia": { "archivo": "acta-policial-por-denuncia.docx" }
-  }
+    "Acta_Policial_Patrullaje": {
+      "archivo": "acta-policial-patrullaje.docx"
+    },
+    "Acta_No_Vejamen": {
+      "archivo": "acta-no-vejamen.docx"
+    },
+    "Acta_Consentimiento_Voluntad": {
+      "archivo": "acta-consentimiento-voluntad.docx"
+    },
+    "Derechos_Del_Imputado": {
+      "archivo": "derechos-del-imputado.docx"
+    },
+    "Acta_Identificacion_Provisional": {
+      "archivo": "acta-identificacion-provisional.docx"
+    },
+    "Oficio_Examen_Toxicologico": {
+      "archivo": "oficio-examen-toxicologico.docx"
+    },
+    "Acta_Inspeccion_Tecnica": {
+      "archivo": "acta-inspeccion-tecnica.docx"
+    },
+    "Fijacion_Fotografica": {
+      "archivo": "fijacion-fotografica.docx"
+    },
+    "Oficio_Remision_Evidencia": {
+      "archivo": "oficio-remision-evidencia.docx"
+    },
+    "Minuta_Informativa_CICPC": {
+      "archivo": "minuta-informativa-cicpc.docx"
+    },
+    "Oficio_Reseña_CICPC": {
+      "archivo": "oficio-resena-cicpc.docx"
+    },
+    "Oficio_SAIME": {
+      "archivo": "oficio-saime.docx"
+    },
+    "Oficio_SENAMECF": {
+      "archivo": "oficio-senamecf.docx"
+    },
+    "Oficio_Notificacion_Fiscal": {
+      "archivo": "oficio-notificacion-fiscal.docx"
+    },
+    "Portada_Expediente": {
+      "archivo": "portada-expediente.docx"
+    },
+    "Ficha_Caso_Denuncia": {
+      "archivo": "ficha-caso-denuncia.docx"
+    },
+    "Acta_Denuncia_Comun": {
+      "archivo": "acta-denuncia-comun.docx"
+    },
+    "Planilla_Confidencial_Victima_Testigo": {
+      "archivo": "planilla-confidencial-victima-testigo.docx"
+    },
+    "Datos_Filiatorios": {
+      "archivo": "datos-filiatorios.docx"
+    },
+    "Acta_Policial_Por_Denuncia": {
+      "archivo": "acta-policial-por-denuncia.docx"
+    },
+    "Acta_Aprehension_Flagrancia": {
+      "archivo": "acta-aprehension-flagrancia.docx"
+    },
+    "Inspeccion_Tecnica_Policial": {
+      "archivo": "inspeccion-tecnica-policial.docx"
+    },
+    "Oficio_Solicitud_Experticia": {
+      "archivo": "oficio-solicitud-experticia.docx"
+    }
+  },
+  "_comentario_v4": "Plantillas de referencia principal para aprehensión en flagrancia: Acta_Aprehension_Flagrancia (acta policial + derecho de imputado por detenido + oficio de remisión a fiscalía + hoja final) e Inspeccion_Tecnica_Policial. Delimitadores {{ }}. El servicio calcula DETENIDOS_TEXTO, DETENIDOS_FICHA y FILAS_FIRMAS."
 }
