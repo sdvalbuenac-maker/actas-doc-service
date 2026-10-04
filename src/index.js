@@ -36,6 +36,77 @@ function sanitizeCampos(campos) {
   return out;
 }
 
+
+// ---------------------------------------------------------------------------
+// Enriquecimiento de campos (cálculos que NO deben depender del modelo de IA)
+// ---------------------------------------------------------------------------
+const NUM_PALABRAS = ["cero","un","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez",
+  "once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte"];
+const BLANK = "________________";
+
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function dos(n) { return String(n).padStart(2, "0"); }
+
+function enrich(campos) {
+  const c = { ...campos };
+
+  // Campos que, si no se informan, deben quedar como espacio en blanco para completar a mano
+  for (const k of ["EXPEDIENTE", "NUMERO_OFICIO", "NUM_FOLIOS", "COORDENADAS"]) {
+    if (c[k] === undefined || c[k] === null || String(c[k]).trim() === "") c[k] = BLANK;
+  }
+
+  // Detenidos: texto para el oficio de remisión y para la ficha final
+  const det = Array.isArray(c.DETENIDOS) ? c.DETENIDOS.filter((d) => d && typeof d === "object") : [];
+  if (det.length) {
+    const n = det.length;
+    const palabra = n <= 20 ? NUM_PALABRAS[n] : String(n);
+    const ident = det.map((d, i) => {
+      const nom = d.NOMBRE_COMPLETO || BLANK;
+      const ced = d.CEDULA ? `, titular de la cédula de identidad ${d.CEDULA}` : "";
+      return (n > 1 ? `${i + 1}) ` : "") + nom + ced;
+    });
+    if (c.DETENIDOS_TEXTO === undefined || c.DETENIDOS_TEXTO === "") {
+      c.DETENIDOS_TEXTO =
+        n === 1
+          ? `Un (01) ciudadano en calidad de detenido (${ident[0]})`
+          : `${cap(palabra)} (${dos(n)}) ciudadanos en calidad de detenidos (${ident.join("; ")})`;
+    }
+    if (c.DETENIDOS_FICHA === undefined || c.DETENIDOS_FICHA === "") {
+      c.DETENIDOS_FICHA = det
+        .map((d, i) => (n > 1 ? `${i + 1}) ` : "") + String(d.NOMBRE_COMPLETO || BLANK).toUpperCase() +
+          (d.CEDULA ? `, TITULAR DE LA CÉDULA DE IDENTIDAD: ${d.CEDULA}` : ""))
+        .join("\n");
+    }
+  } else {
+    // Sin lista estructurada: un solo bloque vacío para que la sección de derechos se genere una vez
+    c.DETENIDOS = [{}];
+    if (!c.DETENIDOS_TEXTO) c.DETENIDOS_TEXTO = "Un (01) ciudadano en calidad de detenido";
+    if (!c.DETENIDOS_FICHA) c.DETENIDOS_FICHA = BLANK;
+  }
+
+  // Firmas de funcionarios actuantes en dos columnas: FUNCIONARIOS_FIRMANTES = ["OFICIAL JEFE (CPNB) MEDINA CARLOS", ...]
+  if (Array.isArray(c.FUNCIONARIOS_FIRMANTES) && !Array.isArray(c.FILAS_FIRMAS)) {
+    const f = c.FUNCIONARIOS_FIRMANTES.map((x) => `____________________________\n${x}`);
+    const filas = [];
+    for (let i = 0; i < f.length; i += 2) filas.push({ IZQ: f[i], DER: f[i + 1] || "" });
+    c.FILAS_FIRMAS = filas;
+  }
+  if (!Array.isArray(c.FILAS_FIRMAS)) c.FILAS_FIRMAS = [{ IZQ: "____________________________", DER: "" }];
+
+  return c;
+}
+
+// Cuando una sección con dibujos se repite (un bloque por detenido), Word necesita ids únicos en wp:docPr
+function renumberDrawingIds(zip) {
+  const names = Object.keys(zip.files).filter((n) => /^word\/(document|header\d*|footer\d*)\.xml$/.test(n));
+  let next = 1;
+  for (const name of names) {
+    const xml = zip.file(name).asText();
+    const out = xml.replace(/(<wp:docPr\b[^>]*?\bid=")\d+(")/g, (_, a, b) => `${a}${next++}${b}`);
+    if (out !== xml) zip.file(name, out);
+  }
+}
+
 function renderDocx(templateFilePath, campos) {
   if (!fs.existsSync(templateFilePath)) {
     const err = new Error(
@@ -58,7 +129,7 @@ function renderDocx(templateFilePath, campos) {
   });
 
   try {
-    doc.render(sanitizeCampos(campos));
+    doc.render(enrich(sanitizeCampos(campos)));
   } catch (error) {
     const detalles =
       error.properties && error.properties.errors
@@ -71,7 +142,9 @@ function renderDocx(templateFilePath, campos) {
     throw wrapped;
   }
 
-  return doc.getZip().generate({ type: "nodebuffer" });
+  const outZip = doc.getZip();
+  renumberDrawingIds(outZip);
+  return outZip.generate({ type: "nodebuffer", compression: "DEFLATE" });
 }
 
 function slugify(text) {
